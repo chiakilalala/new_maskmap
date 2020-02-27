@@ -615,11 +615,11 @@
                 // console.log(child);
                 let str = `
                     <li class="Note__title">
-                        <img src="../img/blue_icon.png" alt="marker">
+                        <img src="./img/blue_icon.png" alt="marker">
                         <p class="colorNote__nice">多於50個</p>
                     </li>
                     <li class="Note__title">
-                        <img src="../img/red_icon.png" alt="">
+                        <img src="./img/red_icon.png" alt="">
                         <p class="colorNote__danger">少於50個</p>
                     </li>
                     <li class="Note__title">
