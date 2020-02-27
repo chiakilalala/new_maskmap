@@ -1,0 +1,95 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet" />
+    <!--加入Leaflet的CDN：  -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin="" />
+
+
+    <!-- 效能處理  -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.Default.css">
+    <!-- icon plue -->
+    <link rel="stylesheet" href="https://rawgit.com/mapshakers/leaflet-icon-pulse/master/src/L.Icon.Pulse.css">
+    <link rel="stylesheet" href="css/all.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="js--loader" class="loader">
+        <img src="./img/bg_load.svg" alt="">
+        <div class="loader-spin"></div>
+        <p class="loader-txt">清點口罩中</p>
+    </div>
+
+    <div class="colorNote">
+        <div class="colorNote__arrow">
+            <i class="fas fa-angle-up"></i>
+        </div>
+        <h3 class="Note__title">口罩數量 </h3>
+
+        <ul class="color_wrap"></ul>
+    </div>
+
+    <div id="map">
+        <div class="m-panel">
+
+            <div class="e-search-header">
+                <img src="./img/Artboard1.png" alt="">
+                <!-- 我有寫程式 -->
+                <p class="date"> </p>
+                <h2> </h2>
+                <p class="e-verification"> </p>
+
+            </div>
+            <div class="e-search">
+                <select name="serch" id="" class="city-search">
+                 
+                </select>
+
+
+                <select name="dist" id="" class="dist-search">
+            <option value="">-- 請選擇鄉鎮區 --</option>
+                   
+                </select>
+
+                <div class="m-panel-total">
+
+                    <ul class="mask_list mb-1">
+                        <!-- <input type="button" class="active js_filter" value="所有口罩"> -->
+                        <input type="button" class=" js_filter ml-0 " value="成人口罩" id="mask__adult">
+                        <input type="button" class="js_filter" value="兒童口罩" id="mask__child">
+
+                    </ul>
+                </div>
+            </div>
+
+            <div nclass="e-search-body ">
+                <!-- <span class="resultList ">  p以下為${country}${zone}內的藥局 </span> -->
+                <ul class="e-search-body-scroll ">
+
+
+                </ul>
+                <button class="e-button-toggle js_toggle "> <i class="fas fa-bars"></i></button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</body>
+
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js " integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=" "></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js "></script>
+<script src="https://rawgit.com/mapshakers/leaflet-icon-pulse/master/src/L.Icon.Pulse.js"></script>
+<script src="js/all.js "></script>
+
+
+</html>

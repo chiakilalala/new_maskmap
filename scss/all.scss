@@ -1,0 +1,16 @@
+// vendors
+@import 'vendors/googleFonts';
+// utils
+@import 'utils/functions';
+@import 'utils/variables';
+@import 'utils/mixins';
+// config
+@import 'config/reset';
+@import 'config/form-reset';
+@import 'config/reboot';
+// helpers
+@import '../node_modules/bootstrap-4-grid/scss/breakpoints/mixins/breakpoints';
+@import '../node_modules/bootstrap-4-grid/scss/grid/bootstrap-grid';
+@import '../node_modules/bootstrap-4-grid/scss/layout/utilities/spacing';
+@import 'index';
+@import 'like';
