@@ -1,9 +1,9 @@
         // 跟第一行是同樣效果的是建立流程不同
         window.onload = function() {
-
+            getUserPosition();
             loader();
             getTime();
-            getUserPosition();
+
             let mask;
 
             //下拉選單
@@ -24,8 +24,13 @@
 
             };
 
-            var myMap = L.map('map').setView([22.595551, 120.306945], 12);
 
+            let myMap = L.map('map', {
+                center: [22.595551, 120.306945],
+                zoomControl: false,
+                zoom: 12,
+
+            });
 
 
             //building map==================================
@@ -190,7 +195,7 @@
                         let lng = data[i].geometry.coordinates[1]; //經度
 
                         if (forTwon == zone && forcountry == citySearch.value) {
-                            latlng = [data[i].geometry.coordinates[1], data[i].geometry.coordinates[0]];
+                            latlng = [lng, lat];
                             // console.log(latlng);
                             country = data[i].properties.county;
                             // console.log(country);
@@ -282,7 +287,7 @@
 
 
                 function getList(zone, country) {
-                    let searchList = [];
+                    // let searchList = [];
                     let str = '';
                     for (var i = 0; i < data.length; i++) {
                         let popAdult;
@@ -306,7 +311,7 @@
                         }
 
                         if (data[i].properties.address.indexOf(country && zone) != -1) {
-                            searchList.push(data[i]);
+                            // searchList.push(data[i]);
                             str += `<li class="pharmacy-wrap eumorphism " data-lat="${data[i].geometry.coordinates[1]}" data-lng="${data[i].geometry.coordinates[0]}">
                                      <div class="e-like"> 
                                         <input type="checkbox" id="${data[i].properties.id}">
@@ -390,19 +395,23 @@
 
 
                 function localPlaceEvent(pharmacyName, pharmacyNameList) {
+
+                    console.log(pharmacyName, pharmacyNameList);
                     for (let i = 0; i < pharmacyName.length; i++) {
-                        // console.log(pharmacyName.length);
+
                         pharmacyNameList[i].addEventListener('click', function(e) {
+                            // console.log(e, this)
+
                             Lat = e.currentTarget.dataset.lat;
                             Lng = e.currentTarget.dataset.lng;
 
                             myMap.setView([Lat, Lng], 20);
-                            L.marker([Lat, Lng], { icon: pulsingIcon }).addTo(myMap).bindPopup(` <div class="pop" data-lat="${data[i].geometry.coordinates[1]}" data-lng="${data[i].geometry.coordinates[0]}"><h3 class="pharmacy-name">${data[i].properties.name} </h3>
+                            L.marker([Lat, Lng], { icon: pulsingIcon }).addTo(myMap).bindPopup(` <div class="pop" data-lat="${pharmacyName.coordinates[1]}" data-lng="${pharmacyName.coordinates[0]}"><h3 class="pharmacy-name">${data[i].properties.name} </h3>
                         <p class="detail"><i class="fas fa-map-marker-alt"></i>
-                        <a href="https://www.google.com.tw/maps/place/${data[i].properties.address}" class="address" target="_blank">${data[i].properties.address}</a></p>
-                            <p class="detail"><i class="fa fa-phone"></i>${data[i].properties.phone}</p>
-                              <div  class="detail note"> <b>注意</b>：${data[i].properties.note == "" || data[i].properties.note == "-" ? '無資料' : data[i].properties.note} </div>
-                        <p class="detail time">更新時間：${data[i].properties.updated == "" ? '無資料' : data[i].properties.updated.slice(5)}-- 以實際營業時間</p>
+                        <a href="https://www.google.com.tw/maps/place/${pharmacyName.address}" class="address" target="_blank">${pharmacyName.address}</a></p>
+                            <p class="detail"><i class="fa fa-phone"></i>${pharmacyName.phone}</p>
+                              <div  class="detail note"> <b>注意</b>：${pharmacyName.note == "" || pharmacyName.note == "-" ? '無資料' : pharmacyName.note} </div>
+                        <p class="detail time">更新時間：${dpharmacyName.updated == "" ? '無資料' : pharmacyName.updated.slice(5)}-- 以實際營業時間</p>
                             <div class="store_statue">
                         <div class="container ${popAdult}">
                         <p> 成人口罩數量</p>
@@ -411,10 +420,12 @@
                         <p> 兒童口罩數量</p>    
                             <p>${mask_child}片</p></div>
                             </div></div>`).openPopup();
-                            console.log([Lat, Lng]);
+
 
                         });
                     };
+
+
                 }
 
                 // function localPlaceFind(e) {
@@ -461,12 +472,6 @@
 
                 // }
 
-                // console.log(local)
-                // L.marker([22.627333, 120.318065], { icon: pulsingIcon }).addTo(myMap).bindPopup(
-                //     '<h1>藥局名稱</h1>' +
-                //     '<p>成人口罩數量: 100' +
-                //     '</p>'
-                // ).openPopup();
 
                 //篩選重複的市----end
                 //判斷popup裡的btn顏色、marker顏色
