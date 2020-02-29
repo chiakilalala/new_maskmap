@@ -396,7 +396,7 @@
 
                 function localPlaceEvent(pharmacyName, pharmacyNameList) {
 
-                    console.log(pharmacyName, pharmacyNameList);
+                    // console.log(pharmacyName, pharmacyNameList);
                     for (let i = 0; i < pharmacyName.length; i++) {
 
                         pharmacyNameList[i].addEventListener('click', function(e) {
@@ -406,20 +406,22 @@
                             Lng = e.currentTarget.dataset.lng;
 
                             myMap.setView([Lat, Lng], 20);
-                            L.marker([Lat, Lng], { icon: pulsingIcon }).addTo(myMap).bindPopup(` <div class="pop" data-lat="${pharmacyName.coordinates[1]}" data-lng="${pharmacyName.coordinates[0]}"><h3 class="pharmacy-name">${data[i].properties.name} </h3>
-                        <p class="detail"><i class="fas fa-map-marker-alt"></i>
-                        <a href="https://www.google.com.tw/maps/place/${pharmacyName.address}" class="address" target="_blank">${pharmacyName.address}</a></p>
-                            <p class="detail"><i class="fa fa-phone"></i>${pharmacyName.phone}</p>
-                              <div  class="detail note"> <b>注意</b>：${pharmacyName.note == "" || pharmacyName.note == "-" ? '無資料' : pharmacyName.note} </div>
-                        <p class="detail time">更新時間：${dpharmacyName.updated == "" ? '無資料' : pharmacyName.updated.slice(5)}-- 以實際營業時間</p>
-                            <div class="store_statue">
-                        <div class="container ${popAdult}">
-                        <p> 成人口罩數量</p>
-                        <p>${mask_adult} 片</p></div>
-                        <div class="container ${popChild}">
-                        <p> 兒童口罩數量</p>    
-                            <p>${mask_child}片</p></div>
-                            </div></div>`).openPopup();
+                            L.marker([Lat, Lng], { icon: pulsingIcon }).addTo(myMap).bindPopup(
+                                ` <div class="pop" data-lat="${pharmacyName.coordinates[1]}" data-lng="${pharmacyName.coordinates[0]}">
+                                    <h3 class="pharmacy-name">${pharmacyName.name} </h3>
+                                   <p class="detail"><i class="fas fa-map-marker-alt"></i>
+                                     <a href="https://www.google.com.tw/maps/place/${pharmacyName.address}" class="address" target="_blank">${pharmacyName.address}</a></p>
+                                    <p class="detail"><i class="fa fa-phone"></i>${pharmacyName.phone}</p>
+                                    <div  class="detail note"> <b>注意</b>：${pharmacyName.note == "" || pharmacyName.note == "-" ? '無資料' : pharmacyName.note} </div>
+                                   <p class="detail time">更新時間：${dpharmacyName.updated == "" ? '無資料' : pharmacyName.updated.slice(5)}-- 以實際營業時間</p>
+                                    <div class="store_statue">
+                                        <div class="container ${popAdult}">
+                                            <p> 成人口罩數量</p>
+                                            <p>${mask_adult} 片</p></div>
+                                        <div class="container ${popChild}">
+                                          <p> 兒童口罩數量</p>    
+                                          <p>${mask_child}片</p></div>
+                                        </div></div>`).openPopup();
 
 
                         });
