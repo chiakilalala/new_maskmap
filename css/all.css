@@ -3905,6 +3905,17 @@ body {
   /*color*/
 }
 
+.pop:before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 1.3rem;
+  width: 8rem;
+  height: 8rem;
+  background: url(../img/sale.svg) center/cover no-repeat;
+  opacity: .3;
+}
+
 .pop .store_statue {
   display: -webkit-box;
   display: -ms-flexbox;
