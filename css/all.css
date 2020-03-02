@@ -4448,6 +4448,10 @@ body {
   color: rgba(0, 0, 0, 0.75);
 }
 
+.leaflet-bar-part span {
+  line-height: 1.5;
+}
+
 .e-like {
   position: absolute;
   top: 1.5rem;

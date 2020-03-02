@@ -1,6 +1,6 @@
         // 跟第一行是同樣效果的是建立流程不同
         window.onload = function() {
-            getUserPosition();
+            // getUserPosition();
             loader();
             getTime();
 
@@ -33,6 +33,7 @@
             });
 
 
+
             //building map==================================
             var OpenStreetMap_BlackAndWhite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png', {
                 // maxZoom: 16,
@@ -44,6 +45,17 @@
             L.control.zoom({
                 position: 'topright'
             }).addTo(myMap);
+            L.control
+                .locate({
+
+                    position: 'topright'
+                })
+                .addTo(myMap)
+                .start();
+
+
+
+            var markers = new L.markerClusterGroup().addTo(myMap);
 
             var blueIcon = new L.Icon({
                 iconUrl: './img/blue_icon.png',
@@ -79,7 +91,7 @@
             var pulsingIcon = L.icon.pulse({ iconSize: [16, 16], color: 'blue', fillColor: 'blue' });
 
 
-            var markers = new L.markerClusterGroup().addTo(myMap);
+
 
 
             //  投入真正的資料
@@ -407,13 +419,13 @@
 
                             myMap.setView([Lat, Lng], 20);
                             L.marker([Lat, Lng], { icon: pulsingIcon }).addTo(myMap).bindPopup(
-                                ` <div class="pop" data-lat="${pharmacyName.coordinates[1]}" data-lng="${pharmacyName.coordinates[0]}">
+                                ` <div class="pop" data-lat="${Lat}" data-lng="${Lng}">
                                     <h3 class="pharmacy-name">${pharmacyName.name} </h3>
                                    <p class="detail"><i class="fas fa-map-marker-alt"></i>
                                      <a href="https://www.google.com.tw/maps/place/${pharmacyName.address}" class="address" target="_blank">${pharmacyName.address}</a></p>
                                     <p class="detail"><i class="fa fa-phone"></i>${pharmacyName.phone}</p>
                                     <div  class="detail note"> <b>注意</b>：${pharmacyName.note == "" || pharmacyName.note == "-" ? '無資料' : pharmacyName.note} </div>
-                                   <p class="detail time">更新時間：${dpharmacyName.updated == "" ? '無資料' : pharmacyName.updated.slice(5)}-- 以實際營業時間</p>
+                                   <p class="detail time">更新時間：${pharmacyName.updated == "" ? '無資料' : pharmacyName.updated.slice(5)}-- 以實際營業時間</p>
                                     <div class="store_statue">
                                         <div class="container ${popAdult}">
                                             <p> 成人口罩數量</p>
@@ -578,24 +590,24 @@
 
             }
             // 取得使用者的地理位置。
-            function getUserPosition() {
-                if (navigator.geolocation) {
-                    function showPosition(position) {
-                        L.marker([position.coords.latitude, position.coords.longitude], { icon: userIcon }).addTo(myMap)
-                            .bindPopup("<p>我在這裡</p>").openPopup();
-                        myMap.setView([position.coords.latitude, position.coords.longitude], 15);
+            // function getUserPosition() {
+            //     if (navigator.geolocation) {
+            //         function showPosition(position) {
+            //             L.marker([position.coords.latitude, position.coords.longitude], { icon: userIcon }).addTo(myMap)
+            //                 .bindPopup("<p>我在這裡</p>").openPopup();
+            //             myMap.setView([position.coords.latitude, position.coords.longitude], 15);
 
-                    }
+            //         }
 
-                    function showError() {
-                        console.log('抱歉，現在無法取的您的地理位置。')
-                    }
+            //         function showError() {
+            //             console.log('抱歉，現在無法取的您的地理位置。')
+            //         }
 
-                    navigator.geolocation.getCurrentPosition(showPosition, showError);
-                } else {
-                    console.log('抱歉，您的裝置不支援定位功能。');
-                }
-            }
+            //         navigator.geolocation.getCurrentPosition(showPosition, showError);
+            //     } else {
+            //         console.log('抱歉，您的裝置不支援定位功能。');
+            //     }
+            // }
 
             /*loader*/
             function loader() {
