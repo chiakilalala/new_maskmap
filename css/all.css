@@ -4512,4 +4512,25 @@ body {
   border-color: transparent;
   background-color: #ef5f5b;
 }
+
+.e-location {
+  position: absolute;
+  top: 1.2rem;
+  right: 3rem;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  cursor: pointer;
+}
+
+.e-location i {
+  font-size: 1rem;
+  padding: 3px;
+  color: #1278c2;
+}
+
+.e-location i:hover {
+  color: #ccc;
+}
 /*# sourceMappingURL=all.css.map */

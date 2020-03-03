@@ -306,16 +306,16 @@
                         let popChild;
                         let m_adult = data[i].properties.mask_adult;
                         let m_child = data[i].properties.mask_child;
-                        if (m_adult >= 50) {
+                        if (m_adult >= 100) {
                             popAdult = 'bg--nice';
-                        } else if (m_adult < 50 && m_adult !== 0) {
+                        } else if (m_adult < 100 && m_adult !== 0) {
                             popAdult = 'bg--danger';
                         } else {
                             popAdult = 'bg--none';
                         }
-                        if (m_child >= 50) {
+                        if (m_child >= 100) {
                             popChild = 'bg--nice';
-                        } else if (m_child < 50 && m_child !== 0) {
+                        } else if (m_child < 100 && m_child !== 0) {
                             popChild = 'bg--danger';
 
                         } else {
@@ -324,8 +324,11 @@
 
                         if (data[i].properties.address.indexOf(country && zone) != -1) {
                             // searchList.push(data[i]);
-                            str += `<li class="pharmacy-wrap eumorphism " data-lat="${data[i].geometry.coordinates[1]}" data-lng="${data[i].geometry.coordinates[0]}">
-                                     <div class="e-like"> 
+                            str += `<li class="pharmacy-wrap eumorphism " >
+                             <div class="e-location" data-lat="${data[i].geometry.coordinates[1]}" data-lng="${data[i].geometry.coordinates[0]}">
+                                  <i class="fa fa-location-arrow"></i>
+                            </div>         
+                            <div class="e-like"> 
                                         <input type="checkbox" id="${data[i].properties.id}">
                                         <label for="${data[i].properties.id}"></label>
                                     </div>
@@ -348,9 +351,9 @@
                     }
                     list.innerHTML = str;
                     // console.log('searchlist', searchList);
-                    var pharmacyName = document.querySelectorAll('.pharmacy-name'); //藥局名
+                    var elocation = document.querySelectorAll('.e-location'); //藥局名
                     var pharmacyNameList = document.querySelectorAll('.pharmacy-wrap'); //藥局block
-                    localPlaceEvent(pharmacyName, pharmacyNameList);
+                    localPlaceEvent(elocation, pharmacyNameList);
                 }
 
 
@@ -359,23 +362,26 @@
                     if (citySearch.value == "" || distSearch.value == "") { return };
                     let str = `<li class="search-title">- 以下為${citySearch.value}${distSearch.value}內的藥局 --</li>`;
                     maskFilter.forEach(mask => {
-                        if (mask.mask_adult >= 50) {
+                        if (mask.mask_adult >= 100) {
                             popAdult = 'bg--nice';
-                        } else if (mask.mask_adult < 50 && mask.mask_adult != 0) {
+                        } else if (mask.mask_adult < 100 && mask.mask_adult != 0) {
                             popAdult = 'bg--danger';
                         } else {
                             popAdult = 'bg--none';
                         }
                         // 小孩口罩
-                        if (mask.mask_child >= 50) {
+                        if (mask.mask_child >= 100) {
                             popChild = 'bg--nice';
-                        } else if (mask.mask_child < 50 && mask.mask_child != 0) {
+                        } else if (mask.mask_child < 100 && mask.mask_child != 0) {
                             popChild = 'bg--danger';
                         } else {
                             popChild = 'bg--none';
                         }
                         str += `
-                            <li class="pharmacy-wrap eumorphism" data-lat="${mask.lat}" data-lng="${mask.lng}">
+                            <li class="pharmacy-wrap eumorphism" >
+                             <div class="e-location" data-lat="${mask.lat}" data-lng="${mask.lng}">
+                                  <i class="fa fa-location-arrow"></i>
+                            </div>
                             <div class="e-like"> 
                                   <input type="checkbox" id="${mask.id}">
                                 <label for="${mask.id}"></label>
@@ -398,20 +404,20 @@
                             `;
                     })
                     list.innerHTML = str;
-                    var pharmacyName = document.querySelectorAll('.pharmacy-name'); //藥局名
+                    var elocation = document.querySelectorAll('.e-location'); //藥局名
                     var pharmacyNameList = document.querySelectorAll('.pharmacy-wrap'); //藥局block
-                    localPlaceEvent(pharmacyName, pharmacyNameList);
+                    localPlaceEvent(elocation, pharmacyNameList);
 
                 }
 
 
 
-                function localPlaceEvent(pharmacyName, pharmacyNameList) {
+                function localPlaceEvent(elocation, pharmacyNameList) {
 
                     // console.log(pharmacyName, pharmacyNameList);
-                    for (let i = 0; i < pharmacyName.length; i++) {
+                    for (let i = 0; i < pharmacyNameList.length; i++) {
 
-                        pharmacyNameList[i].addEventListener('click', function(e) {
+                        elocation[i].addEventListener('click', function(e) {
                             // console.log(e, this)
 
                             Lat = e.currentTarget.dataset.lat;
@@ -420,12 +426,12 @@
                             myMap.setView([Lat, Lng], 20);
                             L.marker([Lat, Lng], { icon: pulsingIcon }).addTo(myMap).bindPopup(
                                 ` <div class="pop" data-lat="${Lat}" data-lng="${Lng}">
-                                    <h3 class="pharmacy-name">${pharmacyName.name} </h3>
+                                    <h3 class="pharmacy-name">${pharmacyNameList.name} </h3>
                                    <p class="detail"><i class="fas fa-map-marker-alt"></i>
-                                     <a href="https://www.google.com.tw/maps/place/${pharmacyName.address}" class="address" target="_blank">${pharmacyName.address}</a></p>
-                                    <p class="detail"><i class="fa fa-phone"></i>${pharmacyName.phone}</p>
-                                    <div  class="detail note"> <b>注意</b>：${pharmacyName.note == "" || pharmacyName.note == "-" ? '無資料' : pharmacyName.note} </div>
-                                   <p class="detail time">更新時間：${pharmacyName.updated == "" ? '無資料' : pharmacyName.updated.slice(5)}-- 以實際營業時間</p>
+                                     <a href="https://www.google.com.tw/maps/place/${pharmacyNameList.address}" class="address" target="_blank">${pharmacyNameList.address}</a></p>
+                                    <p class="detail"><i class="fa fa-phone"></i>${pharmacyNameList.phone}</p>
+                                    <div  class="detail note"> <b>注意</b>：${pharmacyNameList.note == "" || pharmacyNameList.note == "-" ? '無資料' : pharmacyNameList.note} </div>
+                                   <p class="detail time">更新時間：${pharmacyNameList.updated == "" ? '無資料' : pharmacyNameList.updated.slice(5)}-- 以實際營業時間</p>
                                     <div class="store_statue">
                                         <div class="container ${popAdult}">
                                             <p> 成人口罩數量</p>
@@ -442,49 +448,6 @@
 
                 }
 
-                // function localPlaceFind(e) {
-                //     let name = e.path[1].firstElementChild.innerText;
-                //     // console.log(name); //找第一個字符
-                //     let local;
-                //     for (let i = 0; i < data.length; i++) {
-                //         if (data[i].properties.name == name) {
-                //             console.log(name);
-                //             local = [data[i].geometry.coordinates[1], data[i].geometry.coordinates[0]];
-                //             myMap.setView(local, 20);
-                //         }
-                //     }
-
-                //     // for (let i = 0; i < data.length; i++) {
-                //     //     var popAdult;
-                //     //     var popChild;
-                //     //     var mask_adult = data[i].properties.mask_adult;
-                //     //     var mask_child = data[i].properties.mask_child;
-                //     //     var mask;
-
-                //     //     if (mask_adult + mask_child >= 100) {
-                //     //         mask = blueIcon;
-                //     //     } else if (mask_adult + mask_child < 100 && mask_adult + mask_child != 0) {
-                //     //         mask = redIcon;
-                //     //     } else {
-                //     //         mask = blackIcon;
-                //     //     }
-
-                //     //     if (mask_adult >= 50) {
-                //     //         popAdult = 'bg--nice';
-                //     //     } else if (mask_adult < 50 && mask_adult != 0) {
-                //     //         popAdult = 'bg--danger';
-                //     //     } else {
-                //     //         popAdult = 'bg--none';
-                //     //     }
-                //     //     if (mask_child >= 50) {
-                //     //         popChild = 'bg--nice';
-                //     //     } else if (mask_child < 50 && mask_child != 0) {
-                //     //         popChild = 'bg--danger';
-                //     //     } else {
-                //     //         popChild = 'bg--none';
-                //     //     }
-
-                // }
 
 
                 //篩選重複的市----end
@@ -504,16 +467,16 @@
                         mask = blackIcon;
                     }
 
-                    if (mask_adult >= 50) {
+                    if (mask_adult >= 100) {
                         popAdult = 'bg--nice';
-                    } else if (mask_adult < 50 && mask_adult != 0) {
+                    } else if (mask_adult < 100 && mask_adult != 0) {
                         popAdult = 'bg--danger';
                     } else {
                         popAdult = 'bg--none';
                     }
-                    if (mask_child >= 50) {
+                    if (mask_child >= 100) {
                         popChild = 'bg--nice';
-                    } else if (mask_child < 50 && mask_child != 0) {
+                    } else if (mask_child < 100 && mask_child != 0) {
                         popChild = 'bg--danger';
                     } else {
                         popChild = 'bg--none';
@@ -635,11 +598,11 @@
                 let str = `
                     <li class="Note__title">
                         <img src="./img/blue_icon.png" alt="marker">
-                        <p class="colorNote__nice">多於50個</p>
+                        <p class="colorNote__nice">多於100個</p>
                     </li>
                     <li class="Note__title">
                         <img src="./img/red_icon.png" alt="">
-                        <p class="colorNote__danger">少於50個</p>
+                        <p class="colorNote__danger">少於100個</p>
                     </li>
                     <li class="Note__title">
                         <img src="./img/black_icon.png" alt="">
@@ -665,7 +628,23 @@
             }
 
 
-
+            const markerOpen = (lat, lng) => {
+                // 搜尋 markers 圖層下的子圖層
+                markers.eachLayer(layer => {
+                    // 抓取圖層的 經緯度
+                    const eachLat = layer._latlng.lat;
+                    const eachLng = layer._latlng.lng;
+                    // 如果與參數的經緯度相同，就抓取那個 layer
+                    if (eachLat === lat && eachLng === lng) {
+                        // zoomToShowLayer 這個是 MarkerClusterGroup 給的函式
+                        // 方法是調用 MarkerClusterGroup 下的子圖層
+                        markers.zoomToShowLayer(layer, () =>
+                            // 打開 bindPopup 的 HTML
+                            layer.openPopup()
+                        );
+                    }
+                });
+            };
 
 
 
