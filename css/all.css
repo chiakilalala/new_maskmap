@@ -4157,7 +4157,7 @@ body {
 }
 
 .e-search-body-scroll {
-  height: calc(100vh - 232px);
+  height: calc(100vh - 330px);
   overflow-y: scroll;
   padding: 1.25rem 1.5rem 0.625rem;
   /* background: #fff; */
